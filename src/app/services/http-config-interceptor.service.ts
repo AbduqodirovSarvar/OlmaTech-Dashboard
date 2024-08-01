@@ -16,6 +16,8 @@ export class HttpConfigInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authReq = req.clone({
       setHeaders: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${this.helperService.getAccessToken()}`
       }
     });

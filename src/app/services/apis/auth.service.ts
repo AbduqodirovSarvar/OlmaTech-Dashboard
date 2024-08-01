@@ -1,11 +1,18 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UserResponse, UserService } from './user.service';
 
 export interface LoginRequest {
   email: string;
   password: string;
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  confirmationCode: string;
 }
 
 export interface LoginResponse {
@@ -20,20 +27,22 @@ export class AuthService {
   private baseAuthUrl = 'http://45.130.148.137:8080/api/Auth';
   public userBehavior: BehaviorSubject<UserResponse | null> = new BehaviorSubject<UserResponse | null>(null);
 
-  constructor(private http: HttpClient,
-    private userService: UserService
-  ) {
-    userService.getMe().subscribe({
-      next: (user: UserResponse) => {
-        this.userBehavior.next(user);
-      },
-      error: () => {
-        this.userBehavior.next(null);
-      }
-    });
-   }
+  constructor(private http: HttpClient) { }
 
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.baseAuthUrl}/sign-in`, loginRequest);
+    return this.http.post<LoginResponse>(`${this.baseAuthUrl}/sign-in`, loginRequest).pipe(
+      tap((response: LoginResponse) => {
+        this.userBehavior.next(response.user);
+      })
+    );
+  }
+
+  resetPassword(resetPasswordRequest: ResetPasswordRequest): Observable<boolean> {
+    return this.http.post<boolean>(`${this.baseAuthUrl}/reset-password`, resetPasswordRequest);
+  }
+
+  askConfirmationCode(email: string): Observable<any> {
+    let params = new HttpParams().set('Email', email);
+    return this.http.get<boolean>(`${this.baseAuthUrl}/ask-confirmation-code-for-reset-password`, { params });
   }
 }

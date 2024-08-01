@@ -35,16 +35,7 @@ export class FullComponent implements OnInit {
     private dialog: MatDialog,
     private userService: UserService
   ) {
-    // authService.userBehavior.subscribe({
-    //   next: (user) => {
-    //     this.currentUser = user!;
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //   }
-    // });
-
-    userService.getMe().subscribe({
+    this.userService.getMe().subscribe({
       next: (user: UserResponse) => {
         this.currentUser = user;
       },
@@ -52,7 +43,6 @@ export class FullComponent implements OnInit {
         throw error;
       }
     });
-
     baseApiService.getUserRoles().subscribe({
       next: (roles: EnumResponse[]) => {
         this.userRoles = roles;
@@ -92,7 +82,7 @@ export class FullComponent implements OnInit {
   }
 
   getEnumName() :string {
-    return this.userRoles.find(x => x.id === this.currentUser.userrole)?.name ?? "None";
+    return this.userRoles.find(x => x.id === this.currentUser?.userrole)?.name ?? "None";
   }
 
   changeLanguage(language: string): void {

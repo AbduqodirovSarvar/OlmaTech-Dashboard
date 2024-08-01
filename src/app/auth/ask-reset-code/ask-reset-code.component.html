@@ -1,0 +1,16 @@
+<div class="login-container">
+  <div class="login-form">
+      <div class="logo">
+          <img src="../../../assets/images/olmatech.jpg" alt="Logo">
+      </div>
+      <h2>{{ "title.ask-verification-code" | translation | async }}</h2>
+      <form [formGroup]="forgotPasswordForm">
+          <div class="form-group">
+              <label for="email">{{"input.email" | translation | async}}</label>
+              <input type="email" formControlName="email" placeholder="anyemail@example.com">
+          </div>
+          <button (click)="onSubmit()" class="login-button">{{"btn.submit" | translation | async }}</button>
+      </form>
+      <div class="loader" *ngIf="isLoading"></div>
+  </div>
+</div>

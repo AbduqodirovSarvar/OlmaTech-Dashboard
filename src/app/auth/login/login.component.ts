@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,22 +17,13 @@ export interface LoginCommand {
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    CommonModule,
-    MatProgressSpinnerModule
-  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  proccessing: boolean = false;
+  isLoading: boolean = false;
+  languageForm: FormControl = new FormControl();
 
   constructor(
     private authService: AuthService,
@@ -43,30 +34,34 @@ export class LoginComponent {
       password: new FormControl('', Validators.required)
     });
   }
-
-  redirectToReset(){
-
+  ngOnInit(): void {
+    const languageCode = this.helperService.getLanguageCode();
+    this.languageForm.setValue(languageCode);
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.proccessing = true;
+      this.isLoading = true;
       const loginCommand: LoginRequest = this.loginForm.value;
       this.authService.login(loginCommand).subscribe({
         next: (data) => {
-          console.log(data);
-          this.proccessing = false;
+          this.isLoading = false;
           this.helperService.setAccessToken(data.accessToken);
           this.helperService.redirectToDashboard();
         },
         error: (error) => {
           console.log(error.message);
-          this.proccessing = false;
+          this.isLoading = false;
         },
         complete: () => {
-          this.proccessing = false;
+          this.isLoading = false;
         }
       });
     }
+  }
+
+  onLanguageChange(event: any) {
+    const selectedLanguage = event.target.value;
+    this.helperService.setLaguage(selectedLanguage);
   }
 }

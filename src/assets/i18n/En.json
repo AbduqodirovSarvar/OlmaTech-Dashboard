@@ -110,6 +110,9 @@
     "photo": "Photo :  "
   },
   "title": {
+    "login": "Login",
+    "ask-verification-code": "Send a verification code",
+    "reset-password": "Reset Password",
     "sidebar": "OlmaTach",
     "about": "About Us",
     "create-about": "Create New About Information",
@@ -145,6 +148,9 @@
     "is-changing-password": "If you don't change the password, leave this empty!"
   },
   "btn":{
+    "login": "Login",
+    "reset-password": "Reset Password",
+    "forgot-password": "Forgot Password",
     "submit": "Submit",
     "cancel": "Cancel",
     "delete": "Delete",
@@ -170,5 +176,8 @@
     "integer": "Please enter a valid integer.",
     "decimal": "Please enter a valid decimal number.",
     "pattern": "This field does not match the required pattern."
+  },
+  "msg":{
+    "forgot-password": "Forgot your password?"
   }
 }

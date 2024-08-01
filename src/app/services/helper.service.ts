@@ -61,4 +61,9 @@ export class HelperService {
   redirectToLoginPage(): void{
     this.router.navigate(['/auth/sign-in']);
   }
+
+  redirectToResetPassword(email: string): void{
+
+    this.router.navigate(['/auth/request-reset-password'], { queryParams: { email } });
+  }
 }

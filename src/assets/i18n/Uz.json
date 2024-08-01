@@ -110,6 +110,9 @@
     "photo": "Rasm :  "
   },
   "title": {
+    "login": "Tizimga kirish",
+    "ask-verification-code": "Tasdiqlash kodini yuborish",
+    "reset-password": "Parolni tiklash",
     "sidebar": "OlmaTach",
     "about": "Biz haqimizda",
     "create-about": "Yangi ma'lumot yaratish",
@@ -145,6 +148,8 @@
     "is-changing-password": "Agar parolni o'zgartirmasangiz, bu maydonni bo'sh qoldiring!"
   },
   "btn": {
+    "login": "Kirish",
+    "reset-password": "Parolni tiklash",
     "submit": "Yuborish",
     "cancel": "Bekor qilish",
     "delete": "O'chirish",
@@ -170,5 +175,8 @@
   "integer": "Iltimos, to'g'ri butun son kiriting.",
   "decimal": "Iltimos, to'g'ri o'nlik raqam kiriting.",
   "pattern": "Bu maydon talab qilinadigan andozaga mos emas."
+  },
+  "msg":{
+    "forgot-password": "Parolni unutdingizmi?"
   }
 }
