@@ -77,7 +77,7 @@ export class UserService {
     private errorService: ErrorService,
     private config: ConfigService
   ) {
-    this.apiUrl = config.getBaseApiUrl() + '/User';
+    this.apiUrl = this.config.getBaseApiUrl() + '/User';
   }
 
   getUser(userId: string): Observable<UserResponse> {

@@ -86,7 +86,7 @@ export class AboutService {
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {
-    this.baseAboutUrl = config.getBaseApiUrl() + '/About';
+    this.baseAboutUrl = this.config.getBaseApiUrl() + '/About';
    }
 
   getAbout(id: string): Observable<AboutResponse> {

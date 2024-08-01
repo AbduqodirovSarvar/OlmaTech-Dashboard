@@ -31,7 +31,7 @@ export class AuthService {
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {
-    this.baseAuthUrl = config.getBaseApiUrl() + '/Auth';
+    this.baseAuthUrl = this.config.getBaseApiUrl() + '/Auth';
    }
 
   login(loginRequest: LoginRequest): Observable<LoginResponse> {

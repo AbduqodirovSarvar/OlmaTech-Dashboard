@@ -73,7 +73,7 @@ export class HomepostService {
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {
-    this.baseHomePostUrl = config.getBaseApiUrl() + '/HomePost';
+    this.baseHomePostUrl = this.config.getBaseApiUrl() + '/HomePost';
   }
 
   getHomePost(id: string): Observable<HomePostResponse> {

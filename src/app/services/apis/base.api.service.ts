@@ -20,7 +20,7 @@ export class BaseApiService {
     private errorService: ErrorService,
     private config: ConfigService
   ) {
-    this.baseApiUrl = config.getBaseApiUrl() + '/Common';
+    this.baseApiUrl = this.config.getBaseApiUrl() + '/Common';
    }
 
   getEnums(): Observable<EnumResponse[]> {

@@ -61,7 +61,7 @@ export class ServicesService {
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {
-    this.baseServiceUrl = config.getBaseApiUrl() + '/Service';
+    this.baseServiceUrl = this.config.getBaseApiUrl() + '/Service';
   }
 
   getService(id: string): Observable<ServiceResponse> {

@@ -78,7 +78,7 @@ export class TeamService {
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {
-    this.baseTeamUrl = config.getBaseApiUrl() + '/Team';
+    this.baseTeamUrl = this.config.getBaseApiUrl() + '/Team';
   }
 
   getTeamMember(memberId: string): Observable<TeamResponse> {

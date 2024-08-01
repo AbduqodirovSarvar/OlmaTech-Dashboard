@@ -41,7 +41,7 @@ export class MessageService {
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {
-    this.baseMessageUrl = config.getBaseApiUrl() + '/Message';
+    this.baseMessageUrl = this.config.getBaseApiUrl() + '/Message';
   }
 
   getMessageById(id: string): Observable<MessageResponse> {

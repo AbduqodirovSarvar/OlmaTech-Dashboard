@@ -61,7 +61,7 @@ export class BlogService {
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {
-    this.baseBlogPostUrl = config.getBaseApiUrl() + '/BlogPost';
+    this.baseBlogPostUrl = this.config.getBaseApiUrl() + '/BlogPost';
   }
 
    // Create Blog Post

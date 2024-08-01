@@ -37,7 +37,7 @@ export class ContactService {
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {
-    this.baseContactUrl = config.getBaseApiUrl() + '/Contact';
+    this.baseContactUrl = this.config.getBaseApiUrl() + '/Contact';
   }
 
   getContactById(id: string): Observable<ContactResponse> {
