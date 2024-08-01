@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface ProjectResponse {
   id: string;
@@ -57,8 +58,12 @@ export interface DeleteProjectRequest{
 })
 export class ProjectService {
 
-  private baseProjectUrl: string = 'http://45.130.148.137:8080/api/Project';
-  constructor(private http: HttpClient) { }
+  private baseProjectUrl: string;// = 'http://45.130.148.137:8080/api/Project';
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseProjectUrl = this.config.getBaseApiUrl() + '/Project';
+  }
 
   getProjectById(id: string): Observable<ProjectResponse> {
     const params = new HttpParams().set('Id', id);

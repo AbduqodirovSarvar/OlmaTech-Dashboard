@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface HomePostResponse {
   id: string;
@@ -67,9 +68,13 @@ export interface DeleteHomePostRequest {
 })
 export class HomepostService {
 
-  private baseHomePostUrl = 'http://45.130.148.137:8080/api/HomePost';
+  private baseHomePostUrl: string;// = 'http://45.130.148.137:8080/api/HomePost';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseHomePostUrl = config.getBaseApiUrl() + '/HomePost';
+  }
 
   getHomePost(id: string): Observable<HomePostResponse> {
     const params = new HttpParams().set('Id', id);

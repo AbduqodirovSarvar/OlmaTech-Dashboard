@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ErrorService } from '../error.service';
+import { ConfigService } from './config.service';
 
 export interface EnumResponse {
   id: number;
@@ -12,12 +13,15 @@ export interface EnumResponse {
   providedIn: 'root'
 })
 export class BaseApiService {
-  private baseApiUrl: string = 'http://45.130.148.137:8080/api/Common';
+  private baseApiUrl: string;// = 'http://45.130.148.137:8080/api/Common';
 
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService
-  ) { }
+    private errorService: ErrorService,
+    private config: ConfigService
+  ) {
+    this.baseApiUrl = config.getBaseApiUrl() + '/Common';
+   }
 
   getEnums(): Observable<EnumResponse[]> {
     return this.http.get<EnumResponse[]>(`${this.baseApiUrl}/enums`).pipe(

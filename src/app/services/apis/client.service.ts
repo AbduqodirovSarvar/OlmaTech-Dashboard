@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface ClientResponse {
   id: string;
@@ -68,9 +69,13 @@ export interface DeleteClientRequest {
   providedIn: 'root'
 })
 export class ClientService {
-  private baseClientUrl: string = 'http://45.130.148.137:8080/api/Client';
+  private baseClientUrl: string;// = 'http://45.130.148.137:8080/api/Client';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseClientUrl = this.config.getBaseApiUrl() + '/Client';
+  }
 
   getClientById(id: string): Observable<ClientResponse> {
     const params = new HttpParams().set('Id', id);

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ServiceResponse } from './services.service';
+import { ConfigService } from './config.service';
 
 export interface TeamResponse {
   id: string;
@@ -72,9 +73,13 @@ export interface GetTeamRequest {
   providedIn: 'root'
 })
 export class TeamService {
-  private baseTeamUrl: string = 'http://45.130.148.137:8080/api/Team';
+  private baseTeamUrl: string;// = 'http://45.130.148.137:8080/api/Team';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseTeamUrl = config.getBaseApiUrl() + '/Team';
+  }
 
   getTeamMember(memberId: string): Observable<TeamResponse> {
     const params = new HttpParams().set('Id', memberId);

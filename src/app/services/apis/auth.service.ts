@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UserResponse, UserService } from './user.service';
+import { ConfigService } from './config.service';
 
 export interface LoginRequest {
   email: string;
@@ -24,10 +25,14 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseAuthUrl = 'http://45.130.148.137:8080/api/Auth';
+  private baseAuthUrl: string;// = 'http://45.130.148.137:8080/api/Auth';
   public userBehavior: BehaviorSubject<UserResponse | null> = new BehaviorSubject<UserResponse | null>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseAuthUrl = config.getBaseApiUrl() + '/Auth';
+   }
 
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.baseAuthUrl}/sign-in`, loginRequest).pipe(

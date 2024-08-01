@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface MessageResponse {
   id: string;
@@ -34,10 +35,14 @@ export interface DeleteMessageRequest {
   providedIn: 'root'
 })
 export class MessageService {
-  private baseMessageUrl = 'http://45.130.148.137:8080/api/Message';
+  private baseMessageUrl: string;// = 'http://45.130.148.137:8080/api/Message';
   public IsSeenBehaviourSubject: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseMessageUrl = config.getBaseApiUrl() + '/Message';
+  }
 
   getMessageById(id: string): Observable<MessageResponse> {
     const params = new HttpParams().set('Id', id);

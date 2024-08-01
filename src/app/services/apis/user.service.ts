@@ -4,6 +4,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ErrorService } from '../error.service';
+import { ConfigService } from './config.service';
 
 export interface UserResponse {
   id: string;
@@ -69,12 +70,15 @@ export interface DeleteUserRequest {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://45.130.148.137:8080/api/User';
+  private apiUrl: string;// = 'http://45.130.148.137:8080/api/User';
 
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService
-  ) { }
+    private errorService: ErrorService,
+    private config: ConfigService
+  ) {
+    this.apiUrl = config.getBaseApiUrl() + '/User';
+  }
 
   getUser(userId: string): Observable<UserResponse> {
     const httpParams = new HttpParams().set('Id', userId);

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface ContactResponse {
   name: number;
@@ -31,9 +32,13 @@ export interface DeleteContactRequest {
   providedIn: 'root'
 })
 export class ContactService {
-  private baseContactUrl = 'http://45.130.148.137:8080/api/Contact';
+  private baseContactUrl: string;// = 'http://45.130.148.137:8080/api/Contact';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseContactUrl = config.getBaseApiUrl() + '/Contact';
+  }
 
   getContactById(id: string): Observable<ContactResponse> {
     const params = new HttpParams().set('Id', id);

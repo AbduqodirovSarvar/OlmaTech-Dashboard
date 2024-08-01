@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface ServiceResponse {
   id: string; // UUID of the service
@@ -55,9 +56,13 @@ export interface GetServiceRequest {
 })
 export class ServicesService {
 
-  private baseServiceUrl: string = 'http://45.130.148.137:8080/api/Service';
+  private baseServiceUrl: string;// = 'http://45.130.148.137:8080/api/Service';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseServiceUrl = config.getBaseApiUrl() + '/Service';
+  }
 
   getService(id: string): Observable<ServiceResponse> {
     const params = new HttpParams().set('Id', id);

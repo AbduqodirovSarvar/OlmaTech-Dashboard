@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface BlogPostResponse {
   id: string;
@@ -55,9 +56,13 @@ export interface DeleteBlogPostCommand {
   providedIn: 'root'
 })
 export class BlogService {
-  private baseBlogPostUrl: string = 'http://45.130.148.137:8080/api/BlogPost';
+  private baseBlogPostUrl: string;// = 'http://45.130.148.137:8080/api/BlogPost';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseBlogPostUrl = config.getBaseApiUrl() + '/BlogPost';
+  }
 
    // Create Blog Post
    createBlogPost(data: CreateBlogPostRequest): Observable<BlogPostResponse> {

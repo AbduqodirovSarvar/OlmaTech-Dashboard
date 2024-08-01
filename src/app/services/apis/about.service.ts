@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
 export interface CreateAboutRequest {
   AddressUz: string;
@@ -80,9 +81,13 @@ export interface AboutResponse {
 })
 
 export class AboutService {
-  private baseAboutUrl: string = 'http://45.130.148.137:8080/api/About';
+  private baseAboutUrl: string;// = 'http://45.130.148.137:8080/api/About';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.baseAboutUrl = config.getBaseApiUrl() + '/About';
+   }
 
   getAbout(id: string): Observable<AboutResponse> {
     const params = new HttpParams().set('Id', id);
