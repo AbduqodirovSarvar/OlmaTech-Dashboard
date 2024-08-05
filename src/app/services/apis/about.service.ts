@@ -142,12 +142,6 @@ export class AboutService {
       formData.append('Photo', data.Photo);
     }
 
-    console.log(formData); // For debug purposes to check the form data being sent to the server.
-
-    formData.forEach(x => {
-      console.log(x);
-    })
-
     return this.http.put<AboutResponse>(`${this.baseAboutUrl}`, formData);
   }
 

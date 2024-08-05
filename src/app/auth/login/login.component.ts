@@ -43,9 +43,11 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLoading = true;
       const loginCommand: LoginRequest = this.loginForm.value;
+      console.log(loginCommand);
       this.authService.login(loginCommand).subscribe({
         next: (data) => {
           this.isLoading = false;
+          console.log(data);
           this.helperService.setAccessToken(data.accessToken);
           this.helperService.redirectToDashboard();
         },

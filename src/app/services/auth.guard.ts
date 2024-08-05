@@ -15,11 +15,21 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const accessToken = this.helperService.getAccessToken();
-    if (accessToken) {
+    if (accessToken && !this.isTokenExpired(accessToken)) {
       return true;
     } else {
       this.helperService.redirectToLoginPage();
       return false;
     }
+  }
+
+  private isTokenExpired(token: string): boolean {
+    if (!token) return true;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const expiry = payload.exp;
+    const now = Math.floor((new Date).getTime() / 1000);
+
+    return now >= expiry;
   }
 }
