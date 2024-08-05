@@ -58,7 +58,7 @@ export interface DeleteProjectRequest{
 })
 export class ProjectService {
 
-  private baseProjectUrl: string;// = 'http://45.130.148.137:8080/api/Project';
+  private baseProjectUrl: string;
   constructor(private http: HttpClient,
     private config: ConfigService
   ) {

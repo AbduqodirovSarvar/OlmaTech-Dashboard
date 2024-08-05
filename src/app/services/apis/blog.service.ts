@@ -56,7 +56,7 @@ export interface DeleteBlogPostCommand {
   providedIn: 'root'
 })
 export class BlogService {
-  private baseBlogPostUrl: string;// = 'http://45.130.148.137:8080/api/BlogPost';
+  private baseBlogPostUrl: string;
 
   constructor(private http: HttpClient,
     private config: ConfigService

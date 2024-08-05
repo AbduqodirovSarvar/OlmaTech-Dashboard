@@ -32,7 +32,7 @@ export interface DeleteContactRequest {
   providedIn: 'root'
 })
 export class ContactService {
-  private baseContactUrl: string;// = 'http://45.130.148.137:8080/api/Contact';
+  private baseContactUrl: string;
 
   constructor(private http: HttpClient,
     private config: ConfigService

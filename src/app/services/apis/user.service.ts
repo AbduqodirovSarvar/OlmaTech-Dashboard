@@ -70,7 +70,7 @@ export interface DeleteUserRequest {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl: string;// = 'http://45.130.148.137:8080/api/User';
+  private apiUrl: string;
 
   constructor(
     private http: HttpClient,

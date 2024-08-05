@@ -20,6 +20,7 @@ import { BlogPostResponse, BlogService, DeleteBlogPostCommand } from 'src/app/se
 import { UpdateBlogPostDialogComponent } from './update-blog-post-dialog/update-blog-post-dialog.component';
 import { CreateBlogPostDialogComponent } from './create-blog-post-dialog/create-blog-post-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
+import { BaseApiService } from 'src/app/services/apis/base.api.service';
 
 @Component({
   selector: 'app-blog-post',
@@ -48,7 +49,8 @@ export class BlogPostComponent implements OnInit {
 
   constructor(
     private blogPostService: BlogService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private baseApiService: BaseApiService
   ) {
     this.blogPostForm = new FormGroup({
       query: new FormControl(''),
@@ -124,7 +126,7 @@ export class BlogPostComponent implements OnInit {
   }
 
   getPhoto(item: BlogPostResponse): string {
-    return `http://45.130.148.137:8080/api/File/${item.photo}`;
+    return this.baseApiService.getPhoto(item.photo);
   }
 
   onSearch(query: string): void {

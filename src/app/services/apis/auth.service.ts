@@ -25,7 +25,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseAuthUrl: string;// = 'http://45.130.148.137:8080/api/Auth';
+  private baseAuthUrl: string;
   public userBehavior: BehaviorSubject<UserResponse | null> = new BehaviorSubject<UserResponse | null>(null);
 
   constructor(private http: HttpClient,

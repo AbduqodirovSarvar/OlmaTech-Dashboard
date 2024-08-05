@@ -142,7 +142,7 @@ export class UserComponent implements OnInit {
   }
 
   getPhoto(user: UserResponse): string {
-    return `http://45.130.148.137:8080/api/File/${user.photo}`;
+    return this.baseApiService.getPhoto(user.photo);
   }
 
   onSearch(query: string): void {

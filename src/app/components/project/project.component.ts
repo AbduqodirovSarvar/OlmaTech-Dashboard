@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { CreateProjectDialogComponent } from './create-project-dialog/create-project-dialog.component';
 import { UpdateProjectDialogComponent } from './update-project-dialog/update-project-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
+import { BaseApiService } from 'src/app/services/apis/base.api.service';
 
 @Component({
   selector: 'app-project',
@@ -38,7 +39,8 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private baseApiService: BaseApiService
   ) {
     this.projectForm = new FormGroup({
       query: new FormControl('')
@@ -90,7 +92,7 @@ export class ProjectComponent implements OnInit {
   }
 
   getPhoto(item: ProjectResponse): string {
-    return `http://45.130.148.137:8080/api/File/${item.photo}`;
+    return this.baseApiService.getPhoto(item.photo);
   }
 
   loadProjects(searchText?: string | null): void {

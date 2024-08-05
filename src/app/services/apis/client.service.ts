@@ -69,7 +69,7 @@ export interface DeleteClientRequest {
   providedIn: 'root'
 })
 export class ClientService {
-  private baseClientUrl: string;// = 'http://45.130.148.137:8080/api/Client';
+  private baseClientUrl: string;
 
   constructor(private http: HttpClient,
     private config: ConfigService

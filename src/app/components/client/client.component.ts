@@ -12,6 +12,7 @@ import { ClientService, ClientResponse, DeleteClientRequest } from 'src/app/serv
 import { CreateClientDialogComponent } from './create-client-dialog/create-client-dialog.component';
 import { UpdateClientDialogComponent } from './update-client-dialog/update-client-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
+import { BaseApiService } from 'src/app/services/apis/base.api.service';
 
 @Component({
   selector: 'app-client',
@@ -39,7 +40,8 @@ export class ClientComponent implements OnInit {
 
   constructor(
     private clientService: ClientService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private baseApiService: BaseApiService
   ) {
     this.clientForm = new FormGroup({
       query: new FormControl(''),
@@ -108,7 +110,7 @@ export class ClientComponent implements OnInit {
   }
 
   getPhoto(client: ClientResponse): string {
-    return `http://45.130.148.137:8080/api/File/${client.photo}`;
+    return this.baseApiService.getPhoto(client.photo);
   }
 
   onSearch(query: string): void {

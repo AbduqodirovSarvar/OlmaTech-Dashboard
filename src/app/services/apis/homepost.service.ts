@@ -68,7 +68,7 @@ export interface DeleteHomePostRequest {
 })
 export class HomepostService {
 
-  private baseHomePostUrl: string;// = 'http://45.130.148.137:8080/api/HomePost';
+  private baseHomePostUrl: string;
 
   constructor(private http: HttpClient,
     private config: ConfigService

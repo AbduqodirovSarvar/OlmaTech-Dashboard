@@ -12,6 +12,7 @@ import { DeleteTeamRequest, TeamResponse, TeamService } from 'src/app/services/a
 import { CreateTeamDialogComponent } from './create-team-dialog/create-team-dialog.component';
 import { UpdateTeamDialogComponent } from './update-team-dialog/update-team-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
+import { BaseApiService } from 'src/app/services/apis/base.api.service';
 
 @Component({
   selector: 'app-team',
@@ -39,7 +40,8 @@ export class TeamComponent implements OnInit {
 
   constructor(
     private teamService: TeamService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private baseApiService: BaseApiService
   ) {
     this.teamForm = new FormGroup({
       query: new FormControl(''),
@@ -108,7 +110,7 @@ export class TeamComponent implements OnInit {
   }
 
   getPhoto(member: TeamResponse): string {
-    return `http://45.130.148.137:8080/api/File/${member.photo}`;
+    return this.baseApiService.getPhoto(member.photo);
   }
 
   onSearch(query: string): void {

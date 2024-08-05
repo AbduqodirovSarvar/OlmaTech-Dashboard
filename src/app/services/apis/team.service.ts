@@ -73,7 +73,7 @@ export interface GetTeamRequest {
   providedIn: 'root'
 })
 export class TeamService {
-  private baseTeamUrl: string;// = 'http://45.130.148.137:8080/api/Team';
+  private baseTeamUrl: string;
 
   constructor(private http: HttpClient,
     private config: ConfigService

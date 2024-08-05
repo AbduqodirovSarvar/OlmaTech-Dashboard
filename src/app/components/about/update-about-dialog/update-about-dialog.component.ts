@@ -151,6 +151,8 @@ export class UpdateAboutDialogComponent implements OnInit {
         Photo: this.aboutForm.get('Photo')?.value
       };
 
+      console.log(this.updateAboutRequest);
+
       this.aboutService.updateAbout(this.updateAboutRequest).subscribe({
         next: () => {
           console.log('About updated successfully!');

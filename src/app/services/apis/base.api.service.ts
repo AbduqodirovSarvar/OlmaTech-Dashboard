@@ -13,7 +13,8 @@ export interface EnumResponse {
   providedIn: 'root'
 })
 export class BaseApiService {
-  private baseApiUrl: string;// = 'http://45.130.148.137:8080/api/Common';
+  private baseApiUrl: string;
+  private baseFileApiUrl: string;
 
   constructor(
     private http: HttpClient,
@@ -21,6 +22,7 @@ export class BaseApiService {
     private config: ConfigService
   ) {
     this.baseApiUrl = this.config.getBaseApiUrl() + '/Common';
+    this.baseFileApiUrl = this.config.getBaseApiUrl() + '/File';
    }
 
   getEnums(): Observable<EnumResponse[]> {
@@ -56,6 +58,6 @@ export class BaseApiService {
   }
 
   getPhoto(photoName: string | null): string {
-    return `http://45.130.148.137:8080/api/File/${photoName}`;
+    return `${this.baseFileApiUrl}/${photoName}`;
   }
 }

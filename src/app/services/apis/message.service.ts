@@ -35,7 +35,7 @@ export interface DeleteMessageRequest {
   providedIn: 'root'
 })
 export class MessageService {
-  private baseMessageUrl: string;// = 'http://45.130.148.137:8080/api/Message';
+  private baseMessageUrl: string;
   public IsSeenBehaviourSubject: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(null);
 
   constructor(private http: HttpClient,

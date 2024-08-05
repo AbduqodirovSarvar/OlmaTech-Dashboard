@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
+import { BaseApiService } from 'src/app/services/apis/base.api.service';
 
 @Component({
   selector: 'app-home-slide',
@@ -40,7 +41,8 @@ export class HomeSlideComponent implements OnInit {
 
   constructor(
     private homepostService: HomepostService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private baseApiService: BaseApiService
   ) {
     this.homeSlideForm = new FormGroup({
       query: new FormControl(''),
@@ -116,7 +118,7 @@ export class HomeSlideComponent implements OnInit {
   }
 
   getPhoto(item: HomePostResponse): string {
-    return `http://45.130.148.137:8080/api/File/${item.photo}`;
+    return this.baseApiService.getPhoto(item.photo);
   }
 
   onSearch(query: string): void {

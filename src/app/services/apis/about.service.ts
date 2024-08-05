@@ -81,7 +81,7 @@ export interface AboutResponse {
 })
 
 export class AboutService {
-  private baseAboutUrl: string;// = 'http://45.130.148.137:8080/api/About';
+  private baseAboutUrl: string;
 
   constructor(private http: HttpClient,
     private config: ConfigService
@@ -141,6 +141,12 @@ export class AboutService {
     if (data.Photo) {
       formData.append('Photo', data.Photo);
     }
+
+    console.log(formData); // For debug purposes to check the form data being sent to the server.
+
+    formData.forEach(x => {
+      console.log(x);
+    })
 
     return this.http.put<AboutResponse>(`${this.baseAboutUrl}`, formData);
   }

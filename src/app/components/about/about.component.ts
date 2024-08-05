@@ -1,3 +1,4 @@
+import { HelperService } from 'src/app/services/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { CreateAboutDialogComponent } from './create-about-dialog/create-about-dialog.component';
 import { UpdateAboutDialogComponent } from './update-about-dialog/update-about-dialog.component';
 import { TranslationPipe } from "../../services/translation.pipe";
+import { BaseApiService } from 'src/app/services/apis/base.api.service';
 
 @Component({
   selector: 'app-about',
@@ -38,7 +40,8 @@ export class AboutComponent implements OnInit {
 
   constructor(
     private aboutService: AboutService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private baseApiService: BaseApiService
   ) {
     this.aboutForm = new FormGroup({
       query: new FormControl('')
@@ -96,7 +99,7 @@ export class AboutComponent implements OnInit {
   }
 
   getPhoto(item: AboutResponse): string {
-    return `http://45.130.148.137:8080/api/File/${item.photo}`;
+    return this.baseApiService.getPhoto(item.photo);
   }
 
   loadAbout(searchText?: string | null): void {
