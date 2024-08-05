@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConfigService {
-  private baseApiUrl: string = 'http://192.168.60.45:8080/api';
+  private baseApiUrl: string = 'https://test.api.olmatech.uz:4443/api';
   constructor() { }
 
   getBaseApiUrl(): string {
