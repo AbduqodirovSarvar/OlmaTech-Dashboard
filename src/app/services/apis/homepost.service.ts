@@ -88,7 +88,7 @@ export class HomepostService {
     formData.append('TitleRu', data.TitleRu);
     formData.append('TitleUzRu', data.TitleUzRu);
     formData.append('SubtitleUz', data.SubtitleUz);
-    formData.append('SubitleEn', data.SubtitleEn);
+    formData.append('SubtitleEn', data.SubtitleEn);
     formData.append('SubtitleRu', data.SubtitleRu);
     formData.append('SubtitleUzRu', data.SubtitleUzRu);
     formData.append('DescriptionUz', data.DescriptionUz);
@@ -110,7 +110,7 @@ export class HomepostService {
     updateFormData.append('TitleRu', data.TitleRu);
     updateFormData.append('TitleUzRu', data.TitleUzRu);
     updateFormData.append('SubtitleUz', data.SubtitleUz);
-    updateFormData.append('SubitleEn', data.SubtitleEn);
+    updateFormData.append('SubtitleEn', data.SubtitleEn);
     updateFormData.append('SubtitleRu', data.SubtitleRu);
     updateFormData.append('SubtitleUzRu', data.SubtitleUzRu);
     updateFormData.append('DescriptionUz', data.DescriptionUz);
