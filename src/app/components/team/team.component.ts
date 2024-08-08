@@ -13,6 +13,7 @@ import { CreateTeamDialogComponent } from './create-team-dialog/create-team-dial
 import { UpdateTeamDialogComponent } from './update-team-dialog/update-team-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
 import { BaseApiService } from 'src/app/services/apis/base.api.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-team',
@@ -37,12 +38,15 @@ export class TeamComponent implements OnInit {
   filteredMembers: TeamResponse[] = [];
   searchtext: string = '';
   teamForm: FormGroup;
+  languageCode: string;
 
   constructor(
     private teamService: TeamService,
     private dialog: MatDialog,
-    private baseApiService: BaseApiService
+    private baseApiService: BaseApiService,
+    private helperService: HelperService
   ) {
+    this.languageCode = this.helperService.getLanguageCode();
     this.teamForm = new FormGroup({
       query: new FormControl(''),
     });
@@ -125,5 +129,18 @@ export class TeamComponent implements OnInit {
       (member.positionRu && member.positionRu.toLowerCase().includes(lowerQuery)) ||
       (member.positionUzRu && member.positionUzRu.toLowerCase().includes(lowerQuery))
     );
+  }
+
+  getTranslatedName(item: TeamResponse, name: string): string {
+    let key = name;
+    if(this.languageCode === "Ru" || this.languageCode === "UzRu"){
+      key = key + "Ru";
+    }
+    return item[key as keyof TeamResponse] as string;
+  }
+
+  getTranslatedItem(item: TeamResponse, name: string): string {
+    const key = name + this.languageCode;
+    return item[key as keyof TeamResponse] as string;
   }
 }

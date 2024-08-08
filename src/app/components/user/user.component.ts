@@ -27,12 +27,15 @@ export class UserComponent implements OnInit {
   userForm: FormGroup;
   userRoles: EnumResponse[] = [];
   genders: EnumResponse[] = [];
+  languageCode: string;
 
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
-    private baseApiService: BaseApiService
+    private baseApiService: BaseApiService,
+    private helperService: HelperService
   ) {
+    this.languageCode = this.helperService.getLanguageCode();
     this.userForm = new FormGroup({
       query: new FormControl(''),
     });
@@ -126,6 +129,7 @@ export class UserComponent implements OnInit {
     this.userService.getAllUsers().subscribe(
       {
         next: (data) => {
+          console.log(data);
           if (searchText) {
             this.onSearch(searchText);
             this.users = this.filteredUsers;
@@ -155,5 +159,18 @@ export class UserComponent implements OnInit {
       (user.email && user.email.toLowerCase().includes(lowerQuery)) ||
       (user.phone && user.phone.includes(lowerQuery))
     );
+  }
+
+  getTranslatedName(item: UserResponse, name: string): string {
+    let key = name;
+    if(this.languageCode === "Ru" || this.languageCode === "UzRu"){
+      key = key + "Ru";
+    }
+    return item[key as keyof UserResponse] as string;
+  }
+
+  getTranslatedItem(item: UserResponse, name: string): string {
+    const key = name + this.languageCode;
+    return item[key as keyof UserResponse] as string;
   }
 }

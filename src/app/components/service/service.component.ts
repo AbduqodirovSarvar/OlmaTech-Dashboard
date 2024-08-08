@@ -13,6 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { UpdateServiceDialogComponent } from './update-service-dialog/update-service-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-service',
@@ -38,11 +39,14 @@ export class ServiceComponent  implements OnInit {
   filteredItems: ServiceResponse[] = [];
   searchtext: string = '';
   serviceForm: FormGroup;
+  languageCode: string;
 
   constructor(
     private service: ServicesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private helperService: HelperService
   ) {
+    this.languageCode = this.helperService.getLanguageCode();
     this.serviceForm = new FormGroup({
       query: new FormControl(''),
     });
@@ -130,5 +134,10 @@ export class ServiceComponent  implements OnInit {
       (item.descriptionRu && item.descriptionRu.toLowerCase().includes(lowerQuery)) ||
       (item.descriptionUzRu && item.descriptionUzRu.toLowerCase().includes(lowerQuery))
     );
+  }
+
+  getTranslatedItem(item: ServiceResponse, name: string): string {
+    const key = name + this.languageCode;
+    return item[key as keyof ServiceResponse] as string;
   }
 }

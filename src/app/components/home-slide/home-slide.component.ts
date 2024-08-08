@@ -13,6 +13,7 @@ import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
 import { BaseApiService } from 'src/app/services/apis/base.api.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-home-slide',
@@ -38,12 +39,15 @@ export class HomeSlideComponent implements OnInit {
   filteredItems: HomePostResponse[] = [];
   searchtext: string = '';
   homeSlideForm: FormGroup;
+  languageCode: string;
 
   constructor(
     private homepostService: HomepostService,
     private dialog: MatDialog,
-    private baseApiService: BaseApiService
+    private baseApiService: BaseApiService,
+    private helperService: HelperService
   ) {
+    this.languageCode = this.helperService.getLanguageCode();
     this.homeSlideForm = new FormGroup({
       query: new FormControl(''),
     });
@@ -137,5 +141,10 @@ export class HomeSlideComponent implements OnInit {
       (item.descriptionRu && item.descriptionRu.toLowerCase().includes(lowerQuery)) ||
       (item.descriptionUzRu && item.descriptionUzRu.toLowerCase().includes(lowerQuery))
     );
+  }
+
+  getTranslatedItem(item: HomePostResponse, name: string): string {
+    const key = name + this.languageCode;
+    return item[key as keyof HomePostResponse] as string;
   }
 }

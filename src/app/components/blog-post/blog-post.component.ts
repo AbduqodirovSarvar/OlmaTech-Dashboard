@@ -21,6 +21,7 @@ import { UpdateBlogPostDialogComponent } from './update-blog-post-dialog/update-
 import { CreateBlogPostDialogComponent } from './create-blog-post-dialog/create-blog-post-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
 import { BaseApiService } from 'src/app/services/apis/base.api.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-blog-post',
@@ -46,12 +47,15 @@ export class BlogPostComponent implements OnInit {
   filteredItems: BlogPostResponse[] = [];
   searchtext: string = '';
   blogPostForm: FormGroup;
+  languageCode: string;
 
   constructor(
     private blogPostService: BlogService,
     private dialog: MatDialog,
-    private baseApiService: BaseApiService
+    private baseApiService: BaseApiService,
+    private helperService: HelperService
   ) {
+    this.languageCode = this.helperService.getLanguageCode();
     this.blogPostForm = new FormGroup({
       query: new FormControl(''),
     });
@@ -141,6 +145,11 @@ export class BlogPostComponent implements OnInit {
       (item.descriptionRu && item.descriptionRu.toLowerCase().includes(lowerQuery)) ||
       (item.descriptionUzRu && item.descriptionUzRu.toLowerCase().includes(lowerQuery))
     );
+  }
+
+  getTranslatedItem(item: BlogPostResponse, name: string): string {
+    const key = name + this.languageCode;
+    return item[key as keyof BlogPostResponse] as string;
   }
 }
 

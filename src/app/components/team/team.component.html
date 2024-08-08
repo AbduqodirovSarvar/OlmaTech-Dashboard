@@ -18,10 +18,10 @@
             <img [src]="getPhoto(item)" alt="Img">
         </div>
         <div class="delivery-info">
-            <h2>{{item.firstname}}</h2>
-            <h2> {{item.lastname}}</h2>
+            <h2>{{ getTranslatedName(item, "firstname") }}</h2>
+            <h2> {{ getTranslatedName(item, "lastname") }}</h2>
             <h3>{{item.phone}}</h3>
-            <p>{{item.positionEn}}</p>
+            <p>{{ getTranslatedItem(item, "position") }}</p>
         </div>
     </div>
     </div>

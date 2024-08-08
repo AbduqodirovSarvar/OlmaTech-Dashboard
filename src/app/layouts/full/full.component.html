@@ -58,7 +58,7 @@
         <!-- User Profile Button -->
         <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted d-flex align-items-center" [matMenuTriggerFor]="profileMenu">
           <div class="d-flex align-items-center">
-            <span class="fw-bold ms-8">{{currentUser.firstname}} {{currentUser.lastname}}</span>
+            <span class="fw-bold ms-8">{{currentUser?.firstname }} {{currentUser?.lastname}}</span>
             <i-feather name="chevron-down" class="feather-base"></i-feather>
           </div>
         </button>

@@ -13,6 +13,7 @@ import { CreateProjectDialogComponent } from './create-project-dialog/create-pro
 import { UpdateProjectDialogComponent } from './update-project-dialog/update-project-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
 import { BaseApiService } from 'src/app/services/apis/base.api.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-project',
@@ -36,12 +37,15 @@ export class ProjectComponent implements OnInit {
   projectForm!: FormGroup;
   items: ProjectResponse[] = [];
   filteredItems: ProjectResponse[] = [];
+  languageCode: string;
 
   constructor(
     private projectService: ProjectService,
     public dialog: MatDialog,
-    private baseApiService: BaseApiService
+    private baseApiService: BaseApiService,
+    private helperService: HelperService
   ) {
+    this.languageCode = this.helperService.getLanguageCode();
     this.projectForm = new FormGroup({
       query: new FormControl('')
     });
@@ -126,5 +130,10 @@ export class ProjectComponent implements OnInit {
       (item.descriptionRu && item.descriptionRu.toLowerCase().includes(lowerQuery)) ||
       (item.descriptionUzRu && item.descriptionUzRu.toLowerCase().includes(lowerQuery))
     );
+  }
+
+  getTranslatedItem(item: ProjectResponse, name: string): string {
+    const key = name + this.languageCode;
+    return item[key as keyof ProjectResponse] as string;
   }
 }

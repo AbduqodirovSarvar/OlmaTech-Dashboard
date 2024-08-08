@@ -13,6 +13,7 @@ import { CreateClientDialogComponent } from './create-client-dialog/create-clien
 import { UpdateClientDialogComponent } from './update-client-dialog/update-client-dialog.component';
 import { TranslationPipe } from 'src/app/services/translation.pipe';
 import { BaseApiService } from 'src/app/services/apis/base.api.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-client',
@@ -37,12 +38,15 @@ export class ClientComponent implements OnInit {
   filteredClients: ClientResponse[] = [];
   searchText: string = '';
   clientForm: FormGroup;
+  languageCode: string;
 
   constructor(
     private clientService: ClientService,
     private dialog: MatDialog,
-    private baseApiService: BaseApiService
+    private baseApiService: BaseApiService,
+    private helperService: HelperService
   ) {
+    this.languageCode = this.helperService.getLanguageCode();
     this.clientForm = new FormGroup({
       query: new FormControl(''),
     });
@@ -125,5 +129,18 @@ export class ClientComponent implements OnInit {
       (client.positionRu && client.positionRu.toLowerCase().includes(lowerQuery)) ||
       (client.positionUzRu && client.positionUzRu.toLowerCase().includes(lowerQuery))
     );
+  }
+
+  getTranslatedName(item: ClientResponse, name: string): string {
+    let key = name;
+    if(this.languageCode === "Ru" || this.languageCode === "UzRu"){
+      key = key + "Ru";
+    }
+    return item[key as keyof ClientResponse] as string;
+  }
+
+  getTranslatedItem(item: ClientResponse, name: string): string {
+    const key = name + this.languageCode;
+    return item[key as keyof ClientResponse] as string;
   }
 }

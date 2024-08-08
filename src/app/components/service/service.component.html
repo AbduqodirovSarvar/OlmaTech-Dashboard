@@ -19,8 +19,8 @@
         </thead>
         <tbody  *ngFor="let item of items">
           <tr>
-            <td>{{item.nameEn}}</td>
-            <td>{{item.descriptionEn}}</td>
+            <td>{{ getTranslatedItem(item, "name") }}</td>
+            <td>{{ getTranslatedItem(item, "description") }}</td>
             <td>{{ item.createdAt | date:'yyyy-MM-dd HH:mm:ss' }}</td>
             <td>
                 <div class="action-buttons">

@@ -18,8 +18,8 @@
           <img [src]="getPhoto(item)" alt="About Image">
         </div>
         <div class="delivery-info">
-          <h2>{{ item.titleEn }}</h2>
-          <p>{{ item.descriptionEn }}</p>
+          <h2>{{ getTranslatedItem(item, 'title') }}</h2>
+          <p>{{ getTranslatedItem(item, 'description') }}</p>
         </div>
       </div>
     </div>

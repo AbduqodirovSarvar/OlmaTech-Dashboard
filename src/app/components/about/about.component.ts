@@ -35,14 +35,17 @@ import { BaseApiService } from 'src/app/services/apis/base.api.service';
 })
 export class AboutComponent implements OnInit {
   aboutForm!: FormGroup;
-  items: AboutResponse[] = [];
+  items: AboutResponse[]=[];
   filteredItems: AboutResponse[] = [];
+  languageCode: string;
 
   constructor(
     private aboutService: AboutService,
+    private helperService: HelperService,
     public dialog: MatDialog,
     private baseApiService: BaseApiService
   ) {
+    this.languageCode = this.helperService.getLanguageCode();
     this.aboutForm = new FormGroup({
       query: new FormControl('')
     });
@@ -131,5 +134,10 @@ export class AboutComponent implements OnInit {
       (item.titleUzRu && item.titleUzRu.toLowerCase().includes(lowerQuery)) ||
       (item.descriptionUzRu && item.descriptionUzRu.toLowerCase().includes(lowerQuery))
     );
+  }
+
+  getTranslatedItem(item: AboutResponse, name: string): string {
+    const key = name + this.languageCode;
+    return item[key as keyof AboutResponse] as string;
   }
 }

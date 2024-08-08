@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -23,21 +23,22 @@ interface sidebarMenu {
 })
 export class FullComponent implements OnInit {
   userRoles: EnumResponse[] = [];
-  currentUser!: UserResponse;
+  currentUser?: UserResponse;
   notificationNumber: number | null = null;
 
   constructor(
     private helperService: HelperService,
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService,
     private messageService: MessageService,
     private baseApiService: BaseApiService,
     private dialog: MatDialog,
-    private userService: UserService
+    private userService: UserService,
+    private cdr: ChangeDetectorRef
   ) {
     this.userService.getMe().subscribe({
       next: (user: UserResponse) => {
         this.currentUser = user;
+        // cdr.markForCheck();
       },
       error: (error: Error) => {
         throw error;
